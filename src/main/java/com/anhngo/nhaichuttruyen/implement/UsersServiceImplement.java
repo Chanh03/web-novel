@@ -19,7 +19,7 @@ public class UsersServiceImplement implements UsersService {
     }
 
     @Override
-    public Users save(Users users) {
-        return usersRepository.save(users);
+    public void save(Users users) {
+        usersRepository.save(users);
     }
 }

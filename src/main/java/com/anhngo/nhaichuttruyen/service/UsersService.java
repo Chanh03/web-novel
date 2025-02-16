@@ -9,5 +9,5 @@ import java.util.List;
 public interface UsersService {
     List<Users> getAllUsers();
 
-    Users save(Users users);
+    void save(Users users);
 }

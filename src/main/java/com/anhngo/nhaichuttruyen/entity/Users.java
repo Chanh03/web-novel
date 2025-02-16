@@ -1,57 +1,51 @@
 package com.anhngo.nhaichuttruyen.entity;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
 import java.time.LocalDateTime;
 
 @Getter
 @Setter
 @Entity
-@ToString
-@Table(name = "Users")
+@JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
+@Table(name = "users")
 public class Users {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @JsonProperty("id")
     private Integer id;
 
-    @Column(nullable = false, length = 100)
-    @JsonProperty("username")
+    @NotBlank(message = "Username không được để trống")
+    @Size(max = 100, message = "Username tối đa 100 ký tự")
     private String username;
 
-    @Column(nullable = false)
-    @JsonProperty("fullName")
+    @NotBlank(message = "Full name không được để trống")
     private String fullName;
 
-    @Column(nullable = false)
-    @JsonProperty("password")
+    @NotBlank(message = "Password không được để trống")
     private String password;
 
-    @Column(nullable = false)
-    @JsonProperty("email")
+    @NotBlank(message = "Email không được để trống")
+    @Email(message = "Email không hợp lệ")
     private String email;
 
-    @Column(nullable = false, length = 100)
-    @JsonProperty("avatar")
+    @NotBlank(message = "Avatar không được để trống")
+    @Size(min = 1, message = "Avatar phải có ít nhất 1 ký tự")
+    @Pattern(regexp = ".*\\S.*", message = "Avatar không được chỉ chứa khoảng trắng")
     private String avatar;
 
-    @Column(nullable = false)
-    @JsonProperty("isEnabled")
-    private Boolean isEnabled;
+    private Boolean isEnabled = false;
 
-    @Column(nullable = false)
-    @JsonProperty("createDate")
+    @NotNull(message = "Create date không được để trống")
     private LocalDateTime createDate;
 
-    @Column(nullable = false)
-    @JsonProperty("walletBalance")
+    @NotNull(message = "Wallet balance không được để trống")
+    @Min(value = 0, message = "Wallet balance không thể nhỏ hơn 0")
     private Integer walletBalance;
 
-    @Column(nullable = false)
-    @JsonProperty("updateDate")
+    @NotNull(message = "Update date không được để trống")
     private LocalDateTime updateDate;
 }
