@@ -8,6 +8,8 @@ import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 @Getter
@@ -28,5 +30,5 @@ public class Roles {
 
     @JsonIgnore
     @OneToMany(mappedBy = "role")
-    private Set<User_Role> userRoles;
+    private Set<UserRole> userRoles = new LinkedHashSet<>();
 }

@@ -10,7 +10,9 @@ import lombok.Setter;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.Nationalized;
 
-import java.time.Instant;
+import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 @Getter
@@ -57,7 +59,7 @@ public class Users {
 
     @NotNull
     @Column(name = "create_date", nullable = false)
-    private Instant createDate;
+    private LocalDateTime createDate;
 
     @NotNull
     @ColumnDefault("0")
@@ -66,8 +68,9 @@ public class Users {
 
     @NotNull
     @Column(name = "update_date", nullable = false)
-    private Instant updateDate;
+    private LocalDateTime updateDate;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "user")
-    private Set<User_Role> userRoles;
+    private Set<UserRole> userRoles = new LinkedHashSet<>();
 }

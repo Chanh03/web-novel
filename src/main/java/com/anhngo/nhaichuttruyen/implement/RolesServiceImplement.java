@@ -22,4 +22,9 @@ public class RolesServiceImplement implements RolesService {
     public void save(Roles roles) {
         roleRepository.save(roles);
     }
+
+    @Override
+    public Roles findById(Integer roleId) {
+        return roleRepository.findById(roleId).orElse(null);
+    }
 }

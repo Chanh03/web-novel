@@ -10,4 +10,6 @@ public interface UsersService {
     List<Users> getAllUsers();
 
     void save(Users users);
+
+    Users findById(Integer userId);
 }

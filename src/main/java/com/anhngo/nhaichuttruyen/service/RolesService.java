@@ -11,4 +11,6 @@ public interface RolesService {
     List<Roles> getAllRoles();
 
     void save(@Valid Roles roles);
+
+    Roles findById(Integer roleId);
 }

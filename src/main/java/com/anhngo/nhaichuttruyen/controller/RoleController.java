@@ -5,6 +5,7 @@ import com.anhngo.nhaichuttruyen.entity.Users;
 import com.anhngo.nhaichuttruyen.service.RolesService;
 import com.anhngo.nhaichuttruyen.service.UsersService;
 import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,11 +14,8 @@ import java.util.List;
 @RestController
 @RequestMapping("/roles/api")
 public class RoleController {
-    private final RolesService rolesService;
-
-    public RoleController(RolesService rolesService) {
-        this.rolesService = rolesService;
-    }
+    @Autowired
+    private RolesService rolesService;
 
     @GetMapping
     public ResponseEntity<List<Roles>> test() {

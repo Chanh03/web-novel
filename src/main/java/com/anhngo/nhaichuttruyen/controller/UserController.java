@@ -3,6 +3,7 @@ package com.anhngo.nhaichuttruyen.controller;
 import com.anhngo.nhaichuttruyen.entity.Users;
 import com.anhngo.nhaichuttruyen.service.UsersService;
 import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,11 +12,8 @@ import java.util.List;
 @RestController
 @RequestMapping("/users/api")
 public class UserController {
-    private final UsersService usersService;
-
-    public UserController(UsersService usersService) {
-        this.usersService = usersService;
-    }
+    @Autowired
+    private UsersService usersService;
 
     @GetMapping
     public ResponseEntity<List<Users>> test() {

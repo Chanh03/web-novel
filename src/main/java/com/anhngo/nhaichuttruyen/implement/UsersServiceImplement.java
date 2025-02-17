@@ -22,4 +22,9 @@ public class UsersServiceImplement implements UsersService {
     public void save(Users users) {
         usersRepository.save(users);
     }
+
+    @Override
+    public Users findById(Integer userId) {
+        return usersRepository.findById(userId).orElse(null);
+    }
 }

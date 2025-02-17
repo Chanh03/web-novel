@@ -8,6 +8,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class CustomErrorController implements ErrorController {
     @RequestMapping("/error")
     public String handleError() {
-        return "error";
+        return "redirect:/đây là trang lỗi thông báo bằng restful api!, chưa có giao diện";
     }
 }
