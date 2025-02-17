@@ -1,12 +1,17 @@
 package com.anhngo.nhaichuttruyen.entity;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.*;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.Nationalized;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -16,35 +21,53 @@ import java.time.LocalDateTime;
 public class Users {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
     private Integer id;
 
-    @NotBlank(message = "Username không được để trống")
-    @Size(max = 100, message = "Username tối đa 100 ký tự")
+    @Size(max = 100)
+    @NotNull
+    @Column(name = "username", nullable = false, length = 100)
     private String username;
 
-    @NotBlank(message = "Full name không được để trống")
+    @Size(max = 255)
+    @NotNull
+    @Nationalized
+    @Column(name = "full_name", nullable = false)
     private String fullName;
 
-    @NotBlank(message = "Password không được để trống")
+    @Size(max = 255)
+    @NotNull
+    @Column(name = "password", nullable = false)
     private String password;
 
-    @NotBlank(message = "Email không được để trống")
-    @Email(message = "Email không hợp lệ")
+    @Size(max = 255)
+    @NotNull
+    @Column(name = "email", nullable = false)
     private String email;
 
-    @NotBlank(message = "Avatar không được để trống")
-    @Size(min = 1, message = "Avatar phải có ít nhất 1 ký tự")
+    @Size(max = 100)
+    @NotNull
+    @Column(name = "avatar", nullable = false, length = 100)
     private String avatar;
 
+    @NotNull
+    @ColumnDefault("0")
+    @Column(name = "is_enabled", nullable = false)
     private Boolean isEnabled = false;
 
-    @NotNull(message = "Create date không được để trống")
-    private LocalDateTime createDate;
+    @NotNull
+    @Column(name = "create_date", nullable = false)
+    private Instant createDate;
 
-    @NotNull(message = "Wallet balance không được để trống")
-    @Min(value = 0, message = "Wallet balance không thể nhỏ hơn 0")
+    @NotNull
+    @ColumnDefault("0")
+    @Column(name = "wallet_balance", nullable = false)
     private Integer walletBalance;
 
-    @NotNull(message = "Update date không được để trống")
-    private LocalDateTime updateDate;
+    @NotNull
+    @Column(name = "update_date", nullable = false)
+    private Instant updateDate;
+
+    @OneToMany(mappedBy = "user")
+    private Set<User_Role> userRoles;
 }
