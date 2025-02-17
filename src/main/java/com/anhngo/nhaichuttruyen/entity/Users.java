@@ -34,7 +34,6 @@ public class Users {
 
     @NotBlank(message = "Avatar không được để trống")
     @Size(min = 1, message = "Avatar phải có ít nhất 1 ký tự")
-    @Pattern(regexp = ".*\\S.*", message = "Avatar không được chỉ chứa khoảng trắng")
     private String avatar;
 
     private Boolean isEnabled = false;

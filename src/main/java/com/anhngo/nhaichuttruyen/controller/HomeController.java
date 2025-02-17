@@ -3,8 +3,6 @@ package com.anhngo.nhaichuttruyen.controller;
 import com.anhngo.nhaichuttruyen.entity.Users;
 import com.anhngo.nhaichuttruyen.service.UsersService;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,7 +16,6 @@ public class HomeController {
     public HomeController(UsersService usersService) {
         this.usersService = usersService;
     }
-
     @GetMapping("/home")
     public ResponseEntity<String> home() {
         return ResponseEntity.status(404).body("Welcome to NhaiChutTruyen API");
