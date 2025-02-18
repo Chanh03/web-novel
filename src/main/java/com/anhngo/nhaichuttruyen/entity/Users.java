@@ -9,11 +9,13 @@ import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.Nationalized;
+import org.hibernate.annotations.UuidGenerator;
 
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Set;
+import java.util.UUID;
 
 @Getter
 @Setter
@@ -22,9 +24,9 @@ import java.util.Set;
 @Table(name = "users")
 public class Users {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @UuidGenerator(style = UuidGenerator.Style.TIME)
     @Column(name = "id", nullable = false)
-    private Integer id;
+    private UUID id;
 
     @Size(max = 100)
     @NotNull

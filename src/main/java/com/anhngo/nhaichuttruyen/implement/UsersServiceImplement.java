@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class UsersServiceImplement implements UsersService {
@@ -24,7 +25,12 @@ public class UsersServiceImplement implements UsersService {
     }
 
     @Override
-    public Users findById(Integer userId) {
+    public Users findById(UUID userId) {
         return usersRepository.findById(userId).orElse(null);
+    }
+
+    @Override
+    public boolean existsByUsername(String username) {
+        return usersRepository.existsByUsername(username);
     }
 }

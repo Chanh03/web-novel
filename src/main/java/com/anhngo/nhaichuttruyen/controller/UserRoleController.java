@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/user-roles/api")
@@ -30,7 +31,7 @@ public class UserRoleController {
     }
 
     @PostMapping
-    public ResponseEntity<String> add(@RequestParam Integer userId, @RequestParam Integer roleId) {
+    public ResponseEntity<String> add(@RequestParam UUID userId, @RequestParam Integer roleId) {
         // Check if user exists
         if (userRoleService.isExisted(userId, roleId)) {
             return ResponseEntity.badRequest().body("Vai trò người dùng đã tồn tại!");

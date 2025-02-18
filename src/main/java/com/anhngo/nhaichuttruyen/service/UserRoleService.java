@@ -4,6 +4,7 @@ import com.anhngo.nhaichuttruyen.entity.UserRole;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public interface UserRoleService {
@@ -11,5 +12,5 @@ public interface UserRoleService {
 
     void save(UserRole userRole);
 
-    boolean isExisted(Integer userId, Integer roleId);
+    boolean isExisted(UUID userId, Integer roleId);
 }

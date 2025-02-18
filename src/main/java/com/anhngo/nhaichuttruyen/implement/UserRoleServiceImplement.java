@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class UserRoleServiceImplement implements UserRoleService {
@@ -24,7 +25,7 @@ public class UserRoleServiceImplement implements UserRoleService {
     }
 
     @Override
-    public boolean isExisted(Integer userId, Integer roleId) {
+    public boolean isExisted(UUID userId, Integer roleId) {
         return userRoleRepository.findByUserIdAndRoleId(userId, roleId) != null;
     }
 }
