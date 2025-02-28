@@ -19,9 +19,9 @@ import java.util.Set;
 @Table(name = "roles")
 public class Roles {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Size(max = 30)
     @Column(name = "id", nullable = false)
-    private Integer id;
+    private String id;
 
     @Size(max = 30)
     @NotNull

@@ -12,5 +12,5 @@ public interface RolesService {
 
     void save(@Valid Roles roles);
 
-    Roles findById(Integer roleId);
+    Roles findById(String roleId);
 }

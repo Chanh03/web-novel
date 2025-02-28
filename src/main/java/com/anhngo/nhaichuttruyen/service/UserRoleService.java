@@ -12,5 +12,5 @@ public interface UserRoleService {
 
     void save(UserRole userRole);
 
-    boolean isExisted(UUID userId, Integer roleId);
+    boolean isExisted(UUID userId, String roleId);
 }

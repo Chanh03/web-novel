@@ -4,6 +4,7 @@ import com.anhngo.nhaichuttruyen.entity.Users;
 import com.anhngo.nhaichuttruyen.repository.UsersRepository;
 import com.anhngo.nhaichuttruyen.service.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,6 +15,9 @@ public class UsersServiceImplement implements UsersService {
     @Autowired
     private UsersRepository usersRepository;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     @Override
     public List<Users> getAllUsers() {
         return usersRepository.findAll();
@@ -21,6 +25,7 @@ public class UsersServiceImplement implements UsersService {
 
     @Override
     public void save(Users users) {
+        users.setPassword(passwordEncoder.encode(users.getPassword()));
         usersRepository.save(users);
     }
 

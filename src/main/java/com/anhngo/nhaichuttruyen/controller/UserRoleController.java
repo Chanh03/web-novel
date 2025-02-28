@@ -31,7 +31,7 @@ public class UserRoleController {
     }
 
     @PostMapping
-    public ResponseEntity<String> add(@RequestParam UUID userId, @RequestParam Integer roleId) {
+    public ResponseEntity<String> add(@RequestParam UUID userId, @RequestParam String roleId) {
         // Check if user exists
         if (userRoleService.isExisted(userId, roleId)) {
             return ResponseEntity.badRequest().body("Vai trò người dùng đã tồn tại!");

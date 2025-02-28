@@ -25,7 +25,7 @@ public class UserRoleServiceImplement implements UserRoleService {
     }
 
     @Override
-    public boolean isExisted(UUID userId, Integer roleId) {
+    public boolean isExisted(UUID userId, String roleId) {
         return userRoleRepository.findByUserIdAndRoleId(userId, roleId) != null;
     }
 }
