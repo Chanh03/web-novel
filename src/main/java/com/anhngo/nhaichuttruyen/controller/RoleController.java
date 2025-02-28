@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/roles/api")
+@RequestMapping("/api/roles")
 public class RoleController {
     @Autowired
     private RolesService rolesService;
