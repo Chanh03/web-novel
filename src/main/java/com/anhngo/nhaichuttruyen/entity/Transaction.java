@@ -4,12 +4,14 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.OffsetDateTime;
+
 
 @Entity
+@Table(name = "transactions")
 @Getter
 @Setter
-@Table(name = "user_role")
-public class UserRole {
+public class Transaction {
 
     @Id
     @Column(nullable = false, updatable = false)
@@ -25,9 +27,17 @@ public class UserRole {
     )
     private Integer id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "role_id", nullable = false)
-    private Role role;
+    @Column(nullable = false)
+    private Integer amount;
+
+    @Column(nullable = false, length = 100)
+    private String type;
+
+    @Column(nullable = false, length = 100)
+    private String status;
+
+    @Column(nullable = false, columnDefinition = "datetime2")
+    private OffsetDateTime createDate;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)

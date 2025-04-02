@@ -8,8 +8,8 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-@Table(name = "user_role")
-public class UserRole {
+@Table(name = "genre_novel")
+public class GenreNovel {
 
     @Id
     @Column(nullable = false, updatable = false)
@@ -26,11 +26,11 @@ public class UserRole {
     private Integer id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "role_id", nullable = false)
-    private Role role;
+    @JoinColumn(name = "genre_id", nullable = false)
+    private Genre genre;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+    @JoinColumn(name = "novel_id", nullable = false)
+    private Novel novel;
 
 }

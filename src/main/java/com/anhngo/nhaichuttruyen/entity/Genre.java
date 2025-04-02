@@ -4,12 +4,14 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Set;
+
 
 @Entity
 @Getter
 @Setter
-@Table(name = "user_role")
-public class UserRole {
+@Table(name = "genres")
+public class Genre {
 
     @Id
     @Column(nullable = false, updatable = false)
@@ -25,12 +27,10 @@ public class UserRole {
     )
     private Integer id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "role_id", nullable = false)
-    private Role role;
+    @Column(nullable = false, length = 100)
+    private String name;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+    @OneToMany(mappedBy = "genre")
+    private Set<GenreNovel> genreGenreNovels;
 
 }

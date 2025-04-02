@@ -4,12 +4,14 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.OffsetDateTime;
+
 
 @Entity
 @Getter
 @Setter
-@Table(name = "user_role")
-public class UserRole {
+@Table(name = "personal_notifications")
+public class PersonalNotification {
 
     @Id
     @Column(nullable = false, updatable = false)
@@ -25,9 +27,17 @@ public class UserRole {
     )
     private Integer id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "role_id", nullable = false)
-    private Role role;
+    @Column(nullable = false)
+    private String title;
+
+    @Column(nullable = false, columnDefinition = "varchar(max)")
+    private String text;
+
+    @Column(nullable = false, columnDefinition = "datetime2")
+    private OffsetDateTime createDate;
+
+    @Column(nullable = false)
+    private Boolean isRead;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
