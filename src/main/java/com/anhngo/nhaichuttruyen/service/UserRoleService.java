@@ -8,10 +8,11 @@ import com.anhngo.nhaichuttruyen.repos.RoleRepository;
 import com.anhngo.nhaichuttruyen.repos.UserRepository;
 import com.anhngo.nhaichuttruyen.repos.UserRoleRepository;
 import com.anhngo.nhaichuttruyen.util.NotFoundException;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -29,17 +30,22 @@ public class UserRoleService {
     }
 
     public List<UserRoleDTO> findAll() {
-        final List<UserRole> userRoles = userRoleRepository.findAll(Sort.by("id"));
+        final List<UserRole> userRoles = userRoleRepository.findAll();
         return userRoles.stream()
                 .map(userRole -> mapToDTO(userRole, new UserRoleDTO()))
                 .toList();
     }
 
-    public UserRoleDTO get(final Integer id) {
-        return userRoleRepository.findById(id)
+    public List<UserRoleDTO> getAllByUserId(final UUID userId) {
+        List<UserRole> userRoles = userRoleRepository.findByUserId(userId);
+        if (userRoles.isEmpty()) {
+            throw new NotFoundException("User roles not found");
+        }
+        return userRoles.stream()
                 .map(userRole -> mapToDTO(userRole, new UserRoleDTO()))
-                .orElseThrow(NotFoundException::new);
+                .collect(Collectors.toList());
     }
+
 
     public Integer create(final UserRoleDTO userRoleDTO) {
         final UserRole userRole = new UserRole();

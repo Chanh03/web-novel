@@ -32,26 +32,26 @@ public class RoleService {
                 .toList();
     }
 
-    public RoleDTO get(final Integer id) {
+    public RoleDTO get(final String id) {
         return roleRepository.findById(id)
                 .map(role -> mapToDTO(role, new RoleDTO()))
                 .orElseThrow(NotFoundException::new);
     }
 
-    public Integer create(final RoleDTO roleDTO) {
+    public String create(final RoleDTO roleDTO) {
         final Role role = new Role();
         mapToEntity(roleDTO, role);
         return roleRepository.save(role).getId();
     }
 
-    public void update(final Integer id, final RoleDTO roleDTO) {
+    public void update(final String id, final RoleDTO roleDTO) {
         final Role role = roleRepository.findById(id)
                 .orElseThrow(NotFoundException::new);
         mapToEntity(roleDTO, role);
         roleRepository.save(role);
     }
 
-    public void delete(final Integer id) {
+    public void delete(final String id) {
         roleRepository.deleteById(id);
     }
 
@@ -66,7 +66,7 @@ public class RoleService {
         return role;
     }
 
-    public ReferencedWarning getReferencedWarning(final Integer id) {
+    public ReferencedWarning getReferencedWarning(final String id) {
         final ReferencedWarning referencedWarning = new ReferencedWarning();
         final Role role = roleRepository.findById(id)
                 .orElseThrow(NotFoundException::new);

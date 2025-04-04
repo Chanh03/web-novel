@@ -10,7 +10,7 @@ import lombok.Setter;
 @Setter
 public class RoleDTO {
 
-    private Integer id;
+    private String id;
 
     @NotNull
     @Size(max = 30)

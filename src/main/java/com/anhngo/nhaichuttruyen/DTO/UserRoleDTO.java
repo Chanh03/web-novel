@@ -14,7 +14,7 @@ public class UserRoleDTO {
     private Integer id;
 
     @NotNull
-    private Integer role;
+    private String role;
 
     @NotNull
     private UUID user;

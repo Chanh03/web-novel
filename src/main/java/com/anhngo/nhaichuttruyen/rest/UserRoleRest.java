@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+import java.util.UUID;
 
 @RestController
 @RequestMapping(value = "/api/userRoles", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -27,8 +27,8 @@ public class UserRoleRest {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<UserRoleDTO> getUserRole(@PathVariable(name = "id") final Integer id) {
-        return ResponseEntity.ok(userRoleService.get(id));
+    public ResponseEntity<List<UserRoleDTO>> getUserRole(@PathVariable(name = "id") final UUID id) {
+        return ResponseEntity.ok( userRoleService.getAllByUserId(id));
     }
 
     @PostMapping
@@ -40,7 +40,7 @@ public class UserRoleRest {
 
     @PutMapping("/{id}")
     public ResponseEntity<Integer> updateUserRole(@PathVariable(name = "id") final Integer id,
-                                                  @RequestBody @Valid final UserRoleDTO userRoleDTO) {
+                                               @RequestBody @Valid final UserRoleDTO userRoleDTO) {
         userRoleService.update(id, userRoleDTO);
         return ResponseEntity.ok(id);
     }
@@ -50,5 +50,4 @@ public class UserRoleRest {
         userRoleService.delete(id);
         return ResponseEntity.noContent().build();
     }
-
 }

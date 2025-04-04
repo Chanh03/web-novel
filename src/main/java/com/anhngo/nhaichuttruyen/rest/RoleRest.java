@@ -29,25 +29,25 @@ public class RoleRest {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<RoleDTO> getRole(@PathVariable(name = "id") final Integer id) {
+    public ResponseEntity<RoleDTO> getRole(@PathVariable(name = "id") final String id) {
         return ResponseEntity.ok(roleService.get(id));
     }
 
     @PostMapping
-    public ResponseEntity<Integer> createRole(@RequestBody @Valid final RoleDTO roleDTO) {
-        final Integer createdId = roleService.create(roleDTO);
+    public ResponseEntity<String> createRole(@RequestBody @Valid final RoleDTO roleDTO) {
+        final String createdId = roleService.create(roleDTO);
         return new ResponseEntity<>(createdId, HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Integer> updateRole(@PathVariable(name = "id") final Integer id,
+    public ResponseEntity<String> updateRole(@PathVariable(name = "id") final String id,
                                               @RequestBody @Valid final RoleDTO roleDTO) {
         roleService.update(id, roleDTO);
         return ResponseEntity.ok(id);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteRole(@PathVariable(name = "id") final Integer id) {
+    public ResponseEntity<Void> deleteRole(@PathVariable(name = "id") final String id) {
         final ReferencedWarning referencedWarning = roleService.getReferencedWarning(id);
         if (referencedWarning != null) {
             throw new ReferencedException(referencedWarning);
