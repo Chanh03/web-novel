@@ -4,8 +4,12 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.UuidGenerator;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.OffsetDateTime;
+import java.util.Collection;
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -14,7 +18,7 @@ import java.util.UUID;
 @Table(name = "Users")
 @Getter
 @Setter
-public class User {
+public class User{
 
     @Id
     @Column(
@@ -79,5 +83,4 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     private Set<Purchase> userPurchases;
-
 }

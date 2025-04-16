@@ -22,30 +22,30 @@ public class PurchaseRest {
     }
 
     @GetMapping
-    public ResponseEntity<List<PurchasDTO>> getAllPurchass() {
+    public ResponseEntity<List<PurchasDTO>> getAllPurchase() {
         return ResponseEntity.ok(purchasService.findAll());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<PurchasDTO> getPurchas(@PathVariable(name = "id") final Integer id) {
+    public ResponseEntity<PurchasDTO> getPurchase(@PathVariable(name = "id") final Integer id) {
         return ResponseEntity.ok(purchasService.get(id));
     }
 
     @PostMapping
-    public ResponseEntity<Integer> createPurchas(@RequestBody @Valid final PurchasDTO purchasDTO) {
+    public ResponseEntity<Integer> createPurchase(@RequestBody @Valid final PurchasDTO purchasDTO) {
         final Integer createdId = purchasService.create(purchasDTO);
         return new ResponseEntity<>(createdId, HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Integer> updatePurchas(@PathVariable(name = "id") final Integer id,
+    public ResponseEntity<Integer> updatePurchase(@PathVariable(name = "id") final Integer id,
                                                  @RequestBody @Valid final PurchasDTO purchasDTO) {
         purchasService.update(id, purchasDTO);
         return ResponseEntity.ok(id);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletePurchas(@PathVariable(name = "id") final Integer id) {
+    public ResponseEntity<Void> deletePurchase(@PathVariable(name = "id") final Integer id) {
         purchasService.delete(id);
         return ResponseEntity.noContent().build();
     }
