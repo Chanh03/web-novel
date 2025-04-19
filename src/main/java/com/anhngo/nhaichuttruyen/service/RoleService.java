@@ -79,4 +79,8 @@ public class RoleService {
         return null;
     }
 
+    public Role findRoleById(String roleUser) {
+        return roleRepository.findRoleById((roleUser))
+                .orElseThrow(() -> new NotFoundException("Role not found"));
+    }
 }

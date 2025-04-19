@@ -6,6 +6,7 @@ import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.util.UUID;
 
@@ -41,12 +42,12 @@ public class UserDTO {
     private Boolean isEnabled;
 
     @NotNull
-    private OffsetDateTime createDate;
+    private LocalDateTime createDate;
 
     @NotNull
     private Integer walletBalance;
 
     @NotNull
-    private OffsetDateTime updateDate;
+    private LocalDateTime updateDate;
 
 }

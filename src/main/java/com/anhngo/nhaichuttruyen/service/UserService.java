@@ -7,14 +7,17 @@ import com.anhngo.nhaichuttruyen.util.NotFoundException;
 import com.anhngo.nhaichuttruyen.util.ReferencedWarning;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 
 @Service
-public class UserService {
+public class UserService implements UserDetailsService {
 
     private final UserRepository userRepository;
     private final NovelRepository novelRepository;
@@ -85,7 +88,7 @@ public class UserService {
         userDTO.setPassword(user.getPassword());
         userDTO.setEmail(user.getEmail());
         userDTO.setAvatar(user.getAvatar());
-        userDTO.setIsEnabled(user.getIsEnabled());
+        userDTO.setIsEnabled(user.getEnabled());
         userDTO.setCreateDate(user.getCreateDate());
         userDTO.setWalletBalance(user.getWalletBalance());
         userDTO.setUpdateDate(user.getUpdateDate());
@@ -98,7 +101,7 @@ public class UserService {
         user.setPassword(userDTO.getPassword());
         user.setEmail(userDTO.getEmail());
         user.setAvatar(userDTO.getAvatar());
-        user.setIsEnabled(userDTO.getIsEnabled());
+        user.setEnabled(userDTO.getIsEnabled());
         user.setCreateDate(userDTO.getCreateDate());
         user.setWalletBalance(userDTO.getWalletBalance());
         user.setUpdateDate(userDTO.getUpdateDate());
@@ -166,8 +169,17 @@ public class UserService {
         return null;
     }
 
-    public UserDetails loadUserByUsername(String username) {
-        return (UserDetails) userRepository.findByUsername(username)
-                .orElseThrow(NotFoundException::new);
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        return userRepository.findByUsername(username).orElseThrow(
+                () -> new UsernameNotFoundException("User not found with username: " + username));
+    }
+
+    public Optional<User> findByUsername(String username) {
+        return userRepository.findByUsername(username);
+    }
+
+    public void save(User user) {
+        userRepository.save(user);
     }
 }

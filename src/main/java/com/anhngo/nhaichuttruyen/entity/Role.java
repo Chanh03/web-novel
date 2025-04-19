@@ -1,9 +1,10 @@
 package com.anhngo.nhaichuttruyen.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.security.core.GrantedAuthority;
 
 import java.util.Set;
 
@@ -12,6 +13,8 @@ import java.util.Set;
 @Getter
 @Setter
 @Table(name = "roles")
+@AllArgsConstructor
+@NoArgsConstructor
 public class Role {
 
     @Id
@@ -23,5 +26,4 @@ public class Role {
 
     @OneToMany(mappedBy = "role")
     private Set<UserRole> roleUserRoles;
-
 }

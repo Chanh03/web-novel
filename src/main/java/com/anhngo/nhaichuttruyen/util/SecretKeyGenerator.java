@@ -1,8 +1,8 @@
 package com.anhngo.nhaichuttruyen.util;
 
-import java.util.Base64;
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
+import java.util.Base64;
 
 public class SecretKeyGenerator {
     public static void main(String[] args) throws Exception {
