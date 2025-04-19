@@ -1,5 +1,6 @@
 package com.anhngo.nhaichuttruyen.service;
 
+import com.anhngo.nhaichuttruyen.DTO.GenreDTO;
 import com.anhngo.nhaichuttruyen.DTO.NovelDTO;
 import com.anhngo.nhaichuttruyen.entity.*;
 import com.anhngo.nhaichuttruyen.repos.*;
@@ -9,6 +10,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -20,18 +23,20 @@ public class NovelService {
     private final ReceiveNotificationRepository receiveNotificationRepository;
     private final ChapterRepository chapterRepository;
     private final FavoriteRepository favoriteRepository;
+    private final GenreRepository genreRepository;
 
     public NovelService(final NovelRepository novelRepository, final UserRepository userRepository,
                         final GenreNovelRepository genreNovelRepository,
                         final ReceiveNotificationRepository receiveNotificationRepository,
                         final ChapterRepository chapterRepository,
-                        final FavoriteRepository favoriteRepository) {
+                        final FavoriteRepository favoriteRepository, GenreRepository genreRepository) {
         this.novelRepository = novelRepository;
         this.userRepository = userRepository;
         this.genreNovelRepository = genreNovelRepository;
         this.receiveNotificationRepository = receiveNotificationRepository;
         this.chapterRepository = chapterRepository;
         this.favoriteRepository = favoriteRepository;
+        this.genreRepository = genreRepository;
     }
 
     public List<NovelDTO> findAll() {
@@ -77,6 +82,13 @@ public class NovelService {
         novelDTO.setThumbnail(novel.getThumbnail());
         novelDTO.setLikeCount(novel.getLikeCount());
         novelDTO.setSlug(novel.getSlug());
+        List<GenreDTO> genreDTOs = novel.getNovelGenreNovels().stream().map(novelGenre -> {
+            GenreDTO genreDTO = new GenreDTO();
+            genreDTO.setId(novelGenre.getGenre().getId());
+            genreDTO.setName(novelGenre.getGenre().getName());
+            return genreDTO;
+        }).collect(Collectors.toList());
+        novelDTO.setGenres(genreDTOs);
         novelDTO.setAuthor(novel.getAuthor() == null ? null : novel.getAuthor().getId());
         return novelDTO;
     }

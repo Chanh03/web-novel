@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.OffsetDateTime;
+import java.util.List;
 import java.util.UUID;
 
 
@@ -57,5 +58,8 @@ public class NovelDTO {
 
     @NotNull
     private UUID author;
+    
+    @NotNull
+    private List<GenreDTO> genres;
 
 }
