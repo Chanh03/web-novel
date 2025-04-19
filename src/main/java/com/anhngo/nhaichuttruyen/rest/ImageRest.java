@@ -1,12 +1,14 @@
 package com.anhngo.nhaichuttruyen.rest;
 
 import com.anhngo.nhaichuttruyen.DTO.ImageDTO;
+import com.anhngo.nhaichuttruyen.service.CloudinaryService;
 import com.anhngo.nhaichuttruyen.service.ImageService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -16,9 +18,11 @@ import java.util.List;
 public class ImageRest {
 
     private final ImageService imageService;
+    private final CloudinaryService cloudinaryService;
 
-    public ImageRest(final ImageService imageService) {
+    public ImageRest(final ImageService imageService, CloudinaryService cloudinaryService) {
         this.imageService = imageService;
+        this.cloudinaryService = cloudinaryService;
     }
 
     @GetMapping
@@ -31,10 +35,31 @@ public class ImageRest {
         return ResponseEntity.ok(imageService.get(id));
     }
 
-    @PostMapping
-    public ResponseEntity<Integer> createImage(@RequestBody @Valid final ImageDTO imageDTO) {
-        final Integer createdId = imageService.create(imageDTO);
-        return new ResponseEntity<>(createdId, HttpStatus.CREATED);
+    @PostMapping(value = "/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<?> createImages(
+            @RequestParam("file") List<MultipartFile> files,
+            @RequestParam("chapter") int chapter) {
+        if (files.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Không có file nào để tải lên");
+        }
+
+        for (MultipartFile file : files) {
+            if (file.isEmpty() || !file.getContentType().startsWith("image/")) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Một trong các file không hợp lệ");
+            }
+
+            String url = cloudinaryService.uploadFile(file);
+
+            int orderNum = imageService.findAll().isEmpty() ? 1 : imageService.findAll().size() + 1;
+
+            ImageDTO imageDTO = new ImageDTO();
+            imageDTO.setUrl(url);
+            imageDTO.setOrderNum(orderNum);
+            imageDTO.setChapter(chapter);
+            imageService.create(imageDTO);
+        }
+
+        return ResponseEntity.status(HttpStatus.CREATED).body("Tải lên thành công");
     }
 
     @PutMapping("/{id}")

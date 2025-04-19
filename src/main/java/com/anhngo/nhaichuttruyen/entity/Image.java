@@ -3,13 +3,16 @@ package com.anhngo.nhaichuttruyen.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import java.time.OffsetDateTime;
+import java.time.LocalDateTime;
 
 
 @Entity
 @Getter
 @Setter
+@EntityListeners(AuditingEntityListener.class)
 @Table(name = "images")
 public class Image {
 
@@ -26,8 +29,9 @@ public class Image {
     @Column(nullable = false)
     private Integer orderNum;
 
+    @CreatedDate
     @Column(nullable = false, columnDefinition = "datetime2")
-    private OffsetDateTime createDate;
+    private LocalDateTime createDate;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "chapter_id", nullable = false)

@@ -17,11 +17,13 @@ public class ImageService {
 
     private final ImageRepository imageRepository;
     private final ChapterRepository chapterRepository;
+    private final CloudinaryService cloudinaryService;
 
     public ImageService(final ImageRepository imageRepository,
-                        final ChapterRepository chapterRepository) {
+                        final ChapterRepository chapterRepository, CloudinaryService cloudinaryService) {
         this.imageRepository = imageRepository;
         this.chapterRepository = chapterRepository;
+        this.cloudinaryService = cloudinaryService;
     }
 
     public List<ImageDTO> findAll() {
@@ -58,7 +60,6 @@ public class ImageService {
         imageDTO.setId(image.getId());
         imageDTO.setUrl(image.getUrl());
         imageDTO.setOrderNum(image.getOrderNum());
-        imageDTO.setCreateDate(image.getCreateDate());
         imageDTO.setChapter(image.getChapter() == null ? null : image.getChapter().getId());
         return imageDTO;
     }
@@ -66,11 +67,9 @@ public class ImageService {
     private Image mapToEntity(final ImageDTO imageDTO, final Image image) {
         image.setUrl(imageDTO.getUrl());
         image.setOrderNum(imageDTO.getOrderNum());
-        image.setCreateDate(imageDTO.getCreateDate());
         final Chapter chapter = imageDTO.getChapter() == null ? null : chapterRepository.findById(imageDTO.getChapter())
                 .orElseThrow(() -> new NotFoundException("chapter not found"));
         image.setChapter(chapter);
         return image;
     }
-
 }

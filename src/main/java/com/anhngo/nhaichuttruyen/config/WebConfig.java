@@ -9,7 +9,7 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-                .allowedOrigins("https://cdpn.io", "http://localhost") // Hoặc "*" để cho phép tất cả
+                .allowedOrigins("https://cdpn.io", "*") // Hoặc "*" để cho phép tất cả
                 .allowedMethods("GET", "POST", "PUT", "DELETE")
                 .allowedHeaders("*");
     }

@@ -28,7 +28,7 @@ public class UserRoleRest {
 
     @GetMapping("/{id}")
     public ResponseEntity<List<UserRoleDTO>> getUserRole(@PathVariable(name = "id") final UUID id) {
-        return ResponseEntity.ok( userRoleService.getAllByUserId(id));
+        return ResponseEntity.ok(userRoleService.getAllByUserId(id));
     }
 
     @PostMapping
@@ -40,7 +40,7 @@ public class UserRoleRest {
 
     @PutMapping("/{id}")
     public ResponseEntity<Integer> updateUserRole(@PathVariable(name = "id") final Integer id,
-                                               @RequestBody @Valid final UserRoleDTO userRoleDTO) {
+                                                  @RequestBody @Valid final UserRoleDTO userRoleDTO) {
         userRoleService.update(id, userRoleDTO);
         return ResponseEntity.ok(id);
     }

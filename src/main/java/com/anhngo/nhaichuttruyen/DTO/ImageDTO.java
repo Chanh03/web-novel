@@ -5,7 +5,7 @@ import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.OffsetDateTime;
+import java.time.LocalDateTime;
 
 
 @Getter
@@ -20,9 +20,6 @@ public class ImageDTO {
 
     @NotNull
     private Integer orderNum;
-
-    @NotNull
-    private OffsetDateTime createDate;
 
     @NotNull
     private Integer chapter;

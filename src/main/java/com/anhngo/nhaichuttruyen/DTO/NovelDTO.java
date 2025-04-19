@@ -58,7 +58,7 @@ public class NovelDTO {
 
     @NotNull
     private UUID author;
-    
+
     @NotNull
     private List<GenreDTO> genres;
 

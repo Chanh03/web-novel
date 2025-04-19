@@ -39,7 +39,7 @@ public class PurchaseRest {
 
     @PutMapping("/{id}")
     public ResponseEntity<Integer> updatePurchase(@PathVariable(name = "id") final Integer id,
-                                                 @RequestBody @Valid final PurchasDTO purchasDTO) {
+                                                  @RequestBody @Valid final PurchasDTO purchasDTO) {
         purchasService.update(id, purchasDTO);
         return ResponseEntity.ok(id);
     }
