@@ -1,6 +1,7 @@
 package com.anhngo.nhaichuttruyen.entity;
 
 import jakarta.persistence.*;
+import jakarta.transaction.Transactional;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.UuidGenerator;
@@ -24,6 +25,7 @@ import java.util.UUID;
 @Setter
 public class User implements UserDetails {
     @Override
+    @Transactional
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return userUserRoles.stream()
                 .map(role -> new SimpleGrantedAuthority(role.getRole().getName())).toList();

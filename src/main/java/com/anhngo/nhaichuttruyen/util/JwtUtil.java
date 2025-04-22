@@ -2,12 +2,14 @@ package com.anhngo.nhaichuttruyen.util;
 
 import io.jsonwebtoken.Jwts;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import javax.crypto.SecretKey;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -38,17 +40,21 @@ public class JwtUtil {
                 .parseSignedClaims(token).getPayload().getSubject();
     }
 
+    public List<GrantedAuthority> extractAuthorities(String token) {
+        List<String> roles = Jwts.parser().verifyWith(secretKey).build()
+                .parseSignedClaims(token).getPayload().get("roles", List.class);
+        return roles.stream()
+                .map(SimpleGrantedAuthority::new)
+                .collect(Collectors.toList());
+    }
+
     public boolean isTokenValid(String token, UserDetails user) {
         return extractUsername(token).equals(user.getUsername()) && !isExpired(token);
     }
 
     private boolean isExpired(String token) {
-        Date exp = Jwts.parser()
-                .verifyWith(secretKey)
-                .build()
-                .parseSignedClaims(token)
-                .getPayload()
-                .getExpiration();
+        Date exp = Jwts.parser().verifyWith(secretKey).build()
+                .parseSignedClaims(token).getPayload().getExpiration();
         return exp.before(new Date());
     }
 }
